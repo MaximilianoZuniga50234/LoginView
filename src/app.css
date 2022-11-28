@@ -1,0 +1,9 @@
+.backg{
+    background-image: url("src/assets/appBackground.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.customHeight{
+    height: 45%;
+}
