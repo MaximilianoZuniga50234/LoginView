@@ -1,15 +1,46 @@
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import "../app.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 const RegisterElement = () => {
-  const [ userName, setUserName ] = useState("");
-  const [ eMail, setEMail ] = useState("");
-  const [ password, setPassword ] = useState("");
-  const [ passwordConfirm, setPasswordConfirm ] = useState("");
-  const { registerUser } = useContext(UserContext);
+  const [userName, setUserName] = useState("");
+  const [eMail, setEMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const { users, addNewUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const registerUser = (
+    userNameProp,
+    emailProp,
+    passwordProp,
+    confirmPasswordProp
+  ) => {
+    if (passwordProp === confirmPasswordProp) {
+      addNewUser({
+        id: users.length,
+        userName: userNameProp,
+        email: emailProp,
+        password: passwordProp,
+      });
+      Swal.fire({
+        icon: "success",
+        title: "oa",
+        text: "User registration success",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+      navigate("/login");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Ops...",
+        text: "Looks like the passwords doesn't match",
+      });
+    }
+  };
 
   const sumbitHandler = (e) => {
     e.preventDefault();
@@ -32,26 +63,26 @@ const RegisterElement = () => {
           />
           <br />
           <input
-          onChange={(e) => {
-            setEMail(e.target.value);
-          }}
+            onChange={(e) => {
+              setEMail(e.target.value);
+            }}
             className="mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="E-mail"
           />
           <br />
           <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             className="mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="Password"
             type="Password"
           />
           <br />
           <input
-          onChange={(e) => {
-            setPasswordConfirm(e.target.value);
-          }}
+            onChange={(e) => {
+              setPasswordConfirm(e.target.value);
+            }}
             className="mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="Confirm password"
             type="Password"

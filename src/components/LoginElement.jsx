@@ -1,11 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import Swal from "sweetalert2";
+
 
 const LoginElement = () => {
-  const [ identifier, setIdentifier ] = useState("");
-  const [ password, setPassword ] = useState("");
-  const { loginUser } = useContext(UserContext);
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const { users } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const loginUser = (identifierProp, passwordProp) => {
+    users.map((user) => {
+      if (
+        (identifierProp === user.userName || identifierProp === user.email) &&
+        passwordProp === user.password
+      ) {
+        Swal.fire({
+          icon: "success",
+          title: "oa",
+          text: "Login success",
+          showConfirmButton: false,
+          timer: 1200,
+        });
+        navigate("/home");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Ops...",
+          text: "Username, email or password incorrect...",
+        });
+      }
+    });
+  };
 
   const sumbitHandler = (e) => {
     e.preventDefault();

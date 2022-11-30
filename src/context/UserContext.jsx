@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import Swal from "sweetalert2";
 
 export const UserContext = createContext();
 
@@ -8,15 +7,21 @@ export function UserContextProvider(props) {
   const usersArray = [
     {
       id: 0,
-      userName: "Maxi",
+      userName: "a",
       email: "REDligning@gmail.com",
       password: "1234",
     },
     {
       id: 1,
-      userName: "Ixam",
+      userName: "b",
       email: "REDligning2@gmail.com",
-      password: "4321",
+      password: "1234",
+    },
+    {
+      id: 2,
+      userName: "c",
+      email: "REDligning3@gmail.com",
+      password: "1234",
     },
   ];
 
@@ -24,67 +29,15 @@ export function UserContextProvider(props) {
     setUsers(usersArray);
   }, []);
 
-  const registerUser = (
-    userNameProp,
-    emailProp,
-    passwordProp,
-    confirmPasswordProp
-  ) => {
-    if (passwordProp === confirmPasswordProp) {
-      setUsers([
-        ...users,
-        {
-          id: users.length,
-          userName: userNameProp,
-          email: emailProp,
-          password: passwordProp,
-        },
-      ]);
-      Swal.fire({
-        icon: "success",
-        title: "oa",
-        text: "User registration success",
-        showConfirmButton: false,
-        timer: 1200,
-      });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Ops...",
-        text: "Looks like the passwords doesn't match",
-      });
-    }
-  };
-
-  const loginUser = (identifierProp, passwordProp) => {
-    users.map((user) => {
-      if (
-        (identifierProp === user.userName || identifierProp === user.email) &&
-        passwordProp === user.password
-      ) {
-        Swal.fire({
-          icon: "success",
-          title: "oa",
-          text: "Login success",
-          showConfirmButton: false,
-          timer: 1200,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Ops...",
-          text: "Username, email or password incorrect...",
-        });
-      }
-    });
+  const addNewUser = (newUser) => {
+    setUsers([...users, newUser]);
   };
 
   return (
     <UserContext.Provider
       value={{
         users,
-        registerUser,
-        loginUser,
+        addNewUser,
       }}
     >
       {props.children}
