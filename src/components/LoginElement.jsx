@@ -1,43 +1,68 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import Swal from "sweetalert2";
-
 
 const LoginElement = () => {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const { users } = useContext(UserContext);
   const navigate = useNavigate();
+  let successLogin = 0;
+  const [isChecked, setIsChecked] = useState(false);
+  const [passwordInputType, setPasswordInputType] = useState("");
 
-  const loginUser = (identifierProp, passwordProp) => {
-    users.map((user) => {
-      if (
-        (identifierProp === user.userName || identifierProp === user.email) &&
-        passwordProp === user.password
-      ) {
-        Swal.fire({
-          icon: "success",
-          title: "oa",
-          text: "Login success",
-          showConfirmButton: false,
-          timer: 1200,
-        });
-        navigate("/home");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Ops...",
-          text: "Username, email or password incorrect...",
-        });
-      }
-    });
+  const handleOnChange = () => {
+    setIsChecked(!isChecked);
+    if(!isChecked){
+      setPasswordInputType("Text");
+    }else{
+      setPasswordInputType("Password");
+    }
   };
+
+  const validateLoginUser = (user, identifierProp, passwordProp) => {
+    if (
+      (identifierProp === user.userName || identifierProp === user.email) &&
+      passwordProp === user.password
+    ) {
+      successLogin += 1;
+    } else {
+      successLogin += 0;
+      console.log(user.id);
+    }
+  };
+
+  const loginUser = () => {
+    users.map((user) => {
+      validateLoginUser(user, identifier, password);
+    });
+    if (successLogin === 1) {
+      Swal.fire({
+        icon: "success",
+        title: "Login success!",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+      setIdentifier("");
+      setPassword("");
+      navigate("/home");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Ops...",
+        text: "Username, email or password are incorrect!",
+      });
+    }
+  };
+
+  useEffect(() => {
+    setPasswordInputType("Password");
+  }, []);
 
   const sumbitHandler = (e) => {
     e.preventDefault();
-    loginUser(identifier, password);
-    setPassword("");
+    loginUser();
   };
 
   return (
@@ -61,11 +86,16 @@ const LoginElement = () => {
             }}
             className="mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="Password"
-            type="Password"
+            type={passwordInputType}
           />
           <br />
           <div className="text-white text-xl font-medium">
-            <input type="checkbox" /> See Password
+            <input
+              checked={isChecked}
+              onChange={handleOnChange}
+              type="checkbox"
+            />
+            See Password
           </div>
           <br />
           <button className="rounded-xl text-white text-xl font-bold bg-blue-700 border-2 border-blue-600 px-2 hover:bg-blue-600 mt-2">
