@@ -2,11 +2,11 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import Home from "./Home";
 import LoginElement from "./LoginElement";
 import RegisterElement from "./RegisterElement";
+import "../app.css"
 
 const Layout = () => {
   return (
-    <div className="w-full h-full">
-      <div className="w-full h-1/4"> </div>
+    <div className="classCenterElement">
       <BrowserRouter>
         <Routes>
           <Route element={<Home/>} path="/" />

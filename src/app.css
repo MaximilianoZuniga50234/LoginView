@@ -1,9 +1,17 @@
-.backg{
-    background-image: url("src/assets/appBackground.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
+.backg {
+  background-image: url("src/assets/appBackground.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
-.customHeight{
-    height: 45%;
+.customHeight {
+  height: 45%;
+}
+
+.classCenterElement {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

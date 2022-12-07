@@ -3,7 +3,7 @@ import "./app.css";
 
 function App() {
   return (
-    <div className="bg-slate-800 flex w-screen h-screen backg">
+    <div className="bg-slate-800 w-screen h-screen backg">
       <Layout />
     </div>
   );
