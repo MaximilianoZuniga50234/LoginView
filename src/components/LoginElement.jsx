@@ -66,7 +66,7 @@ const LoginElement = () => {
   };
 
   return (
-    <div className="bg-slate-900 rounded-md m-auto px-2 py-2 w-1/3 h-2/5">
+    <div className="bg-slate-900 rounded-md m-auto px-2 py-2 w-1/3 h-1/4">
       <div className="bg-slate-800 rounded-md px-5 py-5 h-full text-center">
         <h1 className="mb-5 text-4xl text-center text-white font-semibold ">
           Welcome
@@ -76,7 +76,7 @@ const LoginElement = () => {
             onChange={(e) => {
               setIdentifier(e.target.value);
             }}
-            className="mt-3 mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
+            className="mt-3 mb-5 bg-blue-100 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="Username o E-mail"
           />
           <br />
@@ -84,7 +84,7 @@ const LoginElement = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            className="mb-5 bg-blue-50 rounded-2xl px-2 py-1 text-xl font-medium"
+            className="mb-4 bg-blue-100 rounded-2xl px-2 py-1 text-xl font-medium"
             placeholder="Password"
             type={passwordInputType}
           />
@@ -98,11 +98,11 @@ const LoginElement = () => {
             See Password
           </div>
           <br />
-          <button className="rounded-xl text-white text-xl font-bold bg-blue-700 border-2 border-blue-600 px-2 hover:bg-blue-600 mt-2">
+          <button className="rounded-lg text-white text-lg font-bold bg-blue-700 border-2 border-blue-600 px-2 hover:bg-blue-600 mt-2">
             Sing in
           </button>
           <br />
-          <div className="text-white mt-7 text-lg">
+          <div className="text-white mt-4 text-lg">
             <Link to="/sing-up">Do not have an account? Sing up</Link>
           </div>
         </form>
